@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chris Games 🎮</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    color:white;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 20%, #ff006e55, transparent 30%),
+        radial-gradient(circle at 90% 20%, #00e5ff55, transparent 30%),
+        radial-gradient(circle at 50% 90%, #7b00ff55, transparent 35%),
+        linear-gradient(135deg,#050016,#001d3d,#18002d);
+    background-size:200% 200%;
+    animation:bgMove 12s infinite alternate;
+}
+
+@keyframes bgMove{
+    from{background-position:0% 0%}
+    to{background-position:100% 100%}
+}
+
+/* NAVBAR */
+
+nav{
+    height:70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 7%;
+    background:#050510cc;
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #ffffff22;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    color:#00e5ff;
+    text-shadow:0 0 15px #00e5ff;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+nav a:hover{
+    color:#00e5ff;
+}
+
+/* HERO */
+
+.hero{
+    min-height:430px;
+    display:flex;
+    align-items:center;
+    padding:70px 7%;
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#00e5ff;
+    text-shadow:0 0 25px #00e5ff;
+}
+
+.hero p{
+    color:#d0d5e0;
+    font-size:19px;
+    max-width:600px;
+    margin-bottom:30px;
+}
+
+.hero button{
+    padding:16px 32px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(90deg,#00e5ff,#7b00ff);
+    color:white;
+    font-weight:bold;
+    font-size:17px;
+    cursor:pointer;
+    box-shadow:0 0 25px #00e5ff66;
+}
+
+/* GAMES */
+
+.games{
+    padding:50px 7%;
+}
+
+.title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.title h2{
+    font-size:35px;
+}
+
+#search{
+    width:240px;
+    padding:13px;
+    border:1px solid #ffffff33;
+    border-radius:10px;
+    background:#080b18cc;
+    color:white;
+    outline:none;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#080b18dd;
+    border:1px solid #ffffff22;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.3s;
+    backdrop-filter:blur(10px);
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.02);
+    border-color:#00e5ff;
+    box-shadow:0 0 30px #00e5ff33;
+}
+
+.icon{
+    height:160px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:70px;
+    background:
+        linear-gradient(135deg,#00e5ff22,#ff006e22,#7b00ff22);
+}
+
+.info{
+    padding:18px;
+}
+
+.info h3{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.info p{
+    color:#aeb6c8;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.play{
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:9px;
+    background:#00e5ff;
+    color:#001018;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.play:hover{
+    background:white;
+}
+
+/* GAME SCREEN */
+
+#gameScreen{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:999;
+    background:
+        radial-gradient(circle at 20% 20%,#ff006e55,transparent 30%),
+        radial-gradient(circle at 80% 80%,#00e5ff55,transparent 30%),
+        #03030b;
+    padding:15px;
+    overflow:auto;
+}
+
+.gameHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:900px;
+    margin:auto;
+    padding:10px;
+}
+
+.gameHeader h2{
+    color:#00e5ff;
+}
+
+.back{
+    padding:10px 20px;
+    border:0;
+    border-radius:8px;
+    background:#ff1744;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+canvas{
+    display:block;
+    margin:15px auto;
+    max-width:95%;
+    border:3px solid #00e5ff;
+    border-radius:12px;
+    background:#050505;
+    box-shadow:0 0 30px #00e5ff55;
+}
+
+/* CONTROLS */
+
+.controls{
+    text-align:center;
+    margin-top:10px;
+}
+
+.controls button{
+    padding:13px 20px;
+    margin:4px;
+    border:0;
+    border-radius:8px;
+    background:#7b00ff;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    padding:35px;
+    color:#aeb6c8;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .title{
+        flex-direction:column;
+        align-items:stretch;
+        gap:15px;
+    }
+
+    #search{
+        width:100%;
+    }
+
+    nav{
+        padding:0 4%;
+    }
+
+    nav a{
+        margin-left:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🎮 CHRIS GAMES</div>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+
+    <div>
+        <h1>
+            Welcome to
+            <span>Chris Games</span> 🎮
+        </h1>
+
+        <p>
+            Play exciting browser games directly on this website.
+            Choose a game and start playing!
+        </p>
+
+        <button onclick="goGames()">
+            🎮 PLAY NOW
+        </button>
+    </div>
+
+</section>
+
+
+<section class="games" id="games">
+
+    <div class="title">
+        <h2>🔥 All Games</h2>
+
+        <input
+            id="search"
+            placeholder="🔎 Search games..."
+            onkeyup="searchGames()"
+        >
+    </div>
+
+    <div class="grid">
+
+        <div class="card" data-name="snake">
+            <div class="icon">🐍</div>
+            <div class="info">
+                <h3>Snake</h3>
+                <p>Eat the food and grow!</p>
+                <button class="play" onclick="openGame('snake')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-name="car racing">
+            <div class="icon">🏎️</div>
+            <div class="info">
+                <h3>Car Racing</h3>
+                <p>Avoid the traffic!</p>
+                <button class="play" onclick="openGame('car')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-name="flappy bird">
+            <div class="icon">🐦</div>
+            <div class="info">
+                <h3>Flappy Bird</h3>
+                <p>Fly through the pipes!</p>
+                <button class="play" onclick="openGame('flappy')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-name="space shooter">
+            <div class="icon">🚀</div>
+            <div class="info">
+                <h3>Space Shooter</h3>
+                <p>Destroy enemy ships!</p>
+                <button class="play" onclick="openGame('space')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-name="football">
+            <div class="icon">⚽</div>
+            <div class="info">
+                <h3>Football</h3>
+                <p>Score the goal!</p>
+                <button class="play" onclick="openGame('football')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+        <div class="card" data-name="pacman">
+            <div class="icon">👾</div>
+            <div class="info">
+                <h3>Pac-Man</h3>
+                <p>Eat the dots!</p>
+                <button class="play" onclick="openGame('pacman')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<footer>
+    🎮 CHRIS GAMES © 2026
+</footer>
+
+
+<!-- GAME SCREEN -->
+
+<div id="gameScreen">
+
+    <div class="gameHeader">
+
+        <h2 id="gameTitle">Game</h2>
+
+        <button class="back" onclick="closeGame()">
+            ⬅ BACK
+        </button>
+
+    </div>
+
+    <canvas id="canvas"
+            width="700"
+            height="500">
+    </canvas>
+
+    <div class="controls">
+
+        <button onclick="restartGame()">
+            🔄 RESTART
+        </button>
+
+        <button onclick="closeGame()">
+            🏠 HOME
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let currentGame = "";
+let animation;
+let keys = {};
+
+document.addEventListener("keydown",e=>{
+    keys[e.key] = true;
+
+    if(e.key === " "){
+        e.preventDefault();
+    }
+});
+
+document.addEventListener("keyup",e=>{
+    keys[e.key] = false;
+});
+
+
+function goGames(){
+    document.getElementById("games")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+
+function searchGames(){
+
+    let value =
+        document.getElementById("search")
+        .value.toLowerCase();
+
+    document.querySelectorAll(".card")
+    .forEach(card=>{
+
+        card.style.display =
+            card.dataset.name.includes(value)
+            ? "block"
+            : "none";
+
+    });
+}
+
+
+function openGame(game){
+
+    currentGame = game;
+
+    document.getElementById("gameScreen")
+    .style.display="block";
+
+    cancelAnimationFrame(animation);
+
+    if(game==="snake"){
+        document.getElementById("gameTitle")
+        .innerText="🐍 Snake";
+        snakeGame();
+    }
+
+    if(game==="car"){
+        document.getElementById("gameTitle")
+        .innerText="🏎️ Car Racing";
+        carGame();
+    }
+
+    if(game==="flappy"){
+        document.getElementById("gameTitle")
+        .innerText="🐦 Flappy Bird";
+        flappyGame();
+    }
+
+    if(game==="space"){
+        document.getElementById("gameTitle")
+        .innerText="🚀 Space Shooter";
+        spaceGame();
+    }
+
+    if(game==="football"){
+        document.getElementById("gameTitle")
+        .innerText="⚽ Football";
+        footballGame();
+    }
+
+    if(game==="pacman"){
+        document.getElementById("gameTitle")
+        .innerText="👾 Pac-Man";
+        pacmanGame();
+    }
+}
+
+
+function closeGame(){
+
+    document.getElementById("gameScreen")
+    .style.display="none";
+
+    cancelAnimationFrame(animation);
+}
+
+
+function restartGame(){
+    openGame(currentGame);
+}
+
+
+/* =========================
+       SNAKE GAME
+========================= */
+
+function snakeGame(){
+
+    let snake=[
+        {x:10,y:10},
+        {x:9,y:10},
+        {x:8,y:10}
+    ];
+
+    let food={
+        x:15,
+        y:15
+    };
+
+    let dx=1;
+    let dy=0;
+
+    function loop(){
+
+        if(keys["ArrowUp"] && dy!==1){
+            dx=0;
+            dy=-1;
+        }
+
+        if(keys["ArrowDown"] && dy!==-1){
+            dx=0;
+            dy=1;
+        }
+
+        if(keys["ArrowLeft"] && dx!==1){
+            dx=-1;
+            dy=0;
+        }
+
+        if(keys["ArrowRight"] && dx!==-1){
+            dx=1;
+            dy=0;
+        }
+
+        let head={
+            x:snake[0].x+dx,
+            y:snake[0].y+dy
+        };
+
+        if(
+            head.x<0 ||
+            head.x>=35 ||
+            head.y<0 ||
+            head.y>=25
+        ){
+            snake=[
+                {x:10,y:10}
+            ];
+            dx=1;
+            dy=0;
+        }
+
+        snake.unshift(head);
+
+        if(head.x===food.x &&
+           head.y===food.y){
+
+            food={
+                x:Math.floor(Math.random()*35),
+                y:Math.floor(Math.random()*25)
+            };
+
+        }else{
+            snake.pop();
+        }
+
+        ctx.fillStyle="#050505";
+        ctx.fillRect(0,0,700,500);
+
+        ctx.fillStyle="#00e5ff";
+
+        snake.forEach(part=>{
+            ctx.fillRect(
+                part.x*20,
+                part.y*20,
+                18,
+                18
+            );
+        });
+
+        ctx.fillStyle="#ff1744";
+
+        ctx.beginPath();
+        ctx.arc(
+            food.x*20+10,
+            food.y*20+10,
+            8,
+            0,
+            Math.PI*2
+        );
+        ctx.fill();
+
+        animation=setTimeout(loop,100);
+
+    }
+
+    loop();
+}
+
+
+/* =========================
+       CAR GAME
+========================= */
+
+function carGame(){
+
+    let carX=330;
+    let enemyY=-100;
+    let enemyX=200;
+    let score=0;
+
+    function loop(){
+
+        if(keys["ArrowLeft"])
+            carX-=7;
+
+        if(keys["ArrowRight"])
+            carX+=7;
+
+        carX=Math.max(120,Math.min(500,carX));
+
+        enemyY+=6;
+
+        if(enemyY>520){
+
+            enemyY=-100;
+
+            enemyX=
+                120+
+                Math.random()*380;
+
+            score++;
+        }
+
+        ctx.fillStyle="#222";
+        ctx.fillRect(0,0,700,500);
+
+        /* road */
+
+        ctx.fillStyle="#333";
+        ctx.fillRect(100,0,500,500);
+
+        /* road lines */
+
+        ctx.strokeStyle="white";
+        ctx.setLineDash([30,25]);
+        ctx.lineWidth=5;
+
+        ctx.beginPath();
+        ctx.moveTo(350,0);
+        ctx.lineTo(350,500);
+        ctx.stroke();
+
+        ctx.setLineDash([]);
+
+        /* player */
+
+        ctx.fillStyle="#00e5ff";
+        ctx.fillRect(carX,400,50,80);
+
+        /* wheels */
+
+        ctx.fillStyle="#111";
+        ctx.fillRect(carX-8,410,8,25);
+        ctx.fillRect(carX+50,410,8,25);
+        ctx.fillRect(carX-8,450,8,25);
+        ctx.fillRect(carX+50,450,8,25);
+
+        /* enemy */
+
+        ctx.fillStyle="#ff1744";
+        ctx.fillRect(enemyX,enemyY,50,80);
+
+        ctx.fillStyle="white";
+        ctx.font="22px Arial";
+        ctx.fillText("Score: "+score,20,35);
+
+        animation=requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+
+/* =========================
+       FLAPPY BIRD
+========================= */
+
+function flappyGame(){
+
+    let birdY=230;
+    let velocity=0;
+    let pipeX=700;
+    let gap=160;
+    let pipeTop=120;
+    let score=0;
+
+    function loop(){
+
+        velocity+=0.45;
+
+        if(keys[" "]){
+            velocity=-7;
+        }
+
+        birdY+=velocity;
+        pipeX-=4;
+
+        if(pipeX<-70){
+
+            pipeX=700;
+            pipeTop=
+                60+
+                Math.random()*200;
+
+            score++;
+        }
+
+        if(birdY<0 || birdY>500){
+
+            birdY=230;
+            velocity=0;
+            score=0;
+            pipeX=700;
+        }
+
+        ctx.fillStyle="#65d9ff";
+        ctx.fillRect(0,0,700,500);
+
+        /* pipes */
+
+        ctx.fillStyle="#18a83b";
+
+        ctx.fillRect(
+            pipeX,
+            0,
+            70,
+            pipeTop
+        );
+
+        ctx.fillRect(
+            pipeX,
+            pipeTop+gap,
+            70,
+            500
+        );
+
+        /* bird */
+
+        ctx.fillStyle="#ffd600";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            150,
+            birdY,
+            18,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        ctx.fillStyle="black";
+        ctx.beginPath();
+
+        ctx.arc(
+            157,
+            birdY-5,
+            3,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        ctx.fillStyle="white";
+        ctx.font="25px Arial";
+        ctx.fillText("Score: "+score,20,35);
+
+        animation=requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+
+/* =========================
+       SPACE SHOOTER
+========================= */
+
+function spaceGame(){
+
+    let playerX=350;
+    let bullets=[];
+    let enemies=[];
+    let score=0;
+
+    for(let i=0;i<7;i++){
+
+        enemies.push({
+            x:50+i*95,
+            y:50,
+            alive:true
+        });
+
+    }
+
+    document.onkeydown=function(e){
+
+        if(e.key===" "){
+
+            bullets.push({
+                x:playerX,
+                y:440
+            });
+
+        }
+
+    };
+
+    function loop(){
+
+        if(keys["ArrowLeft"])
+            playerX-=6;
+
+        if(keys["ArrowRight"])
+            playerX+=6;
+
+        playerX=Math.max(20,Math.min(680,playerX));
+
+        bullets.forEach(b=>{
+            b.y-=8;
+        });
+
+        enemies.forEach(e=>{
+
+            if(!e.alive)
+                return;
+
+            bullets.forEach(b=>{
+
+                if(
+                    b.x>e.x-20 &&
+                    b.x<e.x+20 &&
+                    b.y>e.y-20 &&
+                    b.y<e.y+20
+                ){
+
+                    e.alive=false;
+                    score++;
+
+                }
+
+            });
+
+        });
+
+        ctx.fillStyle="#02020b";
+        ctx.fillRect(0,0,700,500);
+
+        /* stars */
+
+        ctx.fillStyle="white";
+
+        for(let i=0;i<50;i++){
+
+            ctx.fillRect(
+                (i*137)%700,
+                (i*73)%500,
+                2,
+                2
+            );
+
+        }
+
+        /* player */
+
+        ctx.fillStyle="#00e5ff";
+
+        ctx.beginPath();
+
+        ctx.moveTo(playerX,400);
+        ctx.lineTo(playerX-25,460);
+        ctx.lineTo(playerX+25,460);
+
+        ctx.closePath();
+        ctx.fill();
+
+        /* bullets */
+
+        ctx.fillStyle="#ffff00";
+
+        bullets.forEach(b=>{
+            ctx.fillRect(b.x-3,b.y,6,15);
+        });
+
+        /* enemies */
+
+        enemies.forEach(e=>{
+
+            if(!e.alive)
+                return;
+
+            ctx.fillStyle="#ff1744";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                e.x,
+                e.y,
+                20,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        });
+
+        ctx.fillStyle="white";
+        ctx.font="22px Arial";
+        ctx.fillText("Score: "+score,20,35);
+
+        animation=requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+
+/* =========================
+       FOOTBALL
+========================= */
+
+function footballGame(){
+
+    let playerX=350;
+    let ballX=350;
+    let ballY=400;
+    let shooting=false;
+    let score=0;
+
+    document.onkeydown=function(e){
+
+        if(e.key==="ArrowLeft")
+            playerX-=10;
+
+        if(e.key==="ArrowRight")
+            playerX+=10;
+
+        if(e.key===" ")
+            shooting=true;
+
+    };
+
+    function loop(){
+
+        if(shooting){
+
+            ballY-=10;
+
+            if(ballY<70){
+
+                score++;
+                ballY=400;
+                ballX=playerX;
+                shooting=false;
+
+            }
+
+        }else{
+
+            ballX=playerX;
+
+        }
+
+        ctx.fillStyle="#159447";
+        ctx.fillRect(0,0,700,500);
+
+        /* field lines */
+
+        ctx.strokeStyle="white";
+        ctx.lineWidth=4;
+
+        ctx.strokeRect(
+            30,20,640,460
+        );
+
+        /* goal */
+
+        ctx.strokeRect(
+            250,20,200,70
+        );
+
+        /* player */
+
+        ctx.fillStyle="#00e5ff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            playerX,
+            420,
+            20,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        /* ball */
+
+        ctx.fillStyle="white";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            ballX,
+            ballY,
+            10,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        ctx.fillStyle="white";
+        ctx.font="25px Arial";
+        ctx.fillText("Goals: "+score,20,35);
+
+        animation=requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+
+/* =========================
+       PACMAN
+========================= */
+
+function pacmanGame(){
+
+    let x=350;
+    let y=250;
+    let dots=[];
+
+    for(let i=0;i<30;i++){
+
+        dots.push({
+            x:20+Math.random()*660,
+            y:20+Math.random()*460
+        });
+
+    }
+
+    function loop(){
+
+        if(keys["ArrowUp"])
+            y-=5;
+
+        if(keys["ArrowDown"])
+            y+=5;
+
+        if(keys["ArrowLeft"])
+            x-=5;
+
+        if(keys["ArrowRight"])
+            x+=5;
+
+        x=Math.max(15,Math.min(685,x));
+        y=Math.max(15,Math.min(485,y));
+
+        dots=dots.filter(d=>{
+
+            let distance=
+                Math.hypot(
+                    d.x-x,
+                    d.y-y
+                );
+
+            return distance>20;
+
+        });
+
+        ctx.fillStyle="#050018";
+        ctx.fillRect(0,0,700,500);
+
+        /* dots */
+
+        ctx.fillStyle="#fff";
+
+        dots.forEach(d=>{
+
+            ctx.beginPath();
+
+            ctx.arc(
+                d.x,
+                d.y,
+                4,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        });
+
+        /* pacman */
+
+        ctx.fillStyle="#ffff00";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            20,
+            0.25,
+            Math.PI*1.75
+        );
+
+        ctx.lineTo(x,y);
+        ctx.fill();
+
+        ctx.fillStyle="#ff1744";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            600,
+            400,
+            20,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        ctx.fillStyle="white";
+        ctx.font="20px Arial";
+
+        ctx.fillText(
+            "Dots left: "+dots.length,
+            20,
+            30
+        );
+
+        animation=requestAnimationFrame(loop);
+    }
+
+    loop();
+}
+
+</script>
+
+</body>
+</html>
+</body>
+</html>
